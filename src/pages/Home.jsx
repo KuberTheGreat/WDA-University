@@ -7,7 +7,7 @@ function Home() {
         <div className="container mx-auto text-center">
           <h1 className="text-5xl font-bold mb-4">Welcome to Our University</h1>
           <p className="text-xl mb-8">Shaping Tomorrow's Leaders Today</p>
-          <button className="bg-yellow-200 text-blue-800 px-6 py-3 rounded-lg font-semibold hover:bg-green-300 hover:shadow-2xl shadow-red-400">
+          <button className="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 hover:shadow-2xl shadow-sky-400">
             Learn More
           </button>
         </div>
