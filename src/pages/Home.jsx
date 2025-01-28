@@ -34,7 +34,7 @@ function Home() {
         <div className="container mx-auto text-center">
           <h1 className="text-5xl font-bold mb-4">Welcome to Our University</h1>
           <p className="text-xl mb-8">Shaping Tomorrow's Leaders Today</p>
-          <button className="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-900 hover:shadow-2xl shadow-sky-400">
+          <button className="bg-black cursor-pointer text-white px-6 py-3 rounded-lg font-semibold hover:shadow-2xl shadow-sky-400">
             Learn More
           </button>
         </div>
@@ -65,7 +65,7 @@ function Home() {
       </div>
 
       <div className="container mx-auto py-16 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 [&_div]:hover:shadow-amber-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 [&_div]:hover:shadow-gray-400 cursor-pointer">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-bold mb-4">Academic Excellence</h3>
             <p>Discover our world-class programs and exceptional faculty.</p>
