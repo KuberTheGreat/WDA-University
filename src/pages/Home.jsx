@@ -30,7 +30,7 @@ function Home() {
 
   return (
     <div className="min-h-screen">
-      <div className="bg-linear-to-l from-sky-500 to-indigo-800 text-white py-20">
+      <div className="bg-blue-800 text-white py-20">
         <div className="container mx-auto text-center">
           <h1 className="text-5xl font-bold mb-4">Welcome to Our University</h1>
           <p className="text-xl mb-8">Shaping Tomorrow's Leaders Today</p>
@@ -67,7 +67,6 @@ function Home() {
       <div className="container mx-auto py-16 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 [&_div]:hover:shadow-gray-400 cursor-pointer">
           <div className="bg-white p-6 rounded-lg shadow-lg">
-          <img src="https://th.bing.com/th/id/OIP.e2xe5wqTScj3QS4XIofobAHaEo?w=316&h=197&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Academics" />
             <h3 className="text-xl font-bold mb-4">Academic Excellence</h3>
             <p>Discover our world-class programs and exceptional faculty.</p>
           </div>
