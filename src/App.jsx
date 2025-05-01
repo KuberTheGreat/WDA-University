@@ -5,8 +5,8 @@ import Home from './components/Home';
 import About from './components/About';
 import Courses from './components/Courses';
 import Contact from './components/Contact';
-import Login from './components/Login';
-import AuthPage from './components/AuthPage';
+import AuthPage from './components/Login';
+// import AuthPage from './components/AuthPage';
 
 function App() {
   return (
