@@ -10,47 +10,63 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
+  const [role, setRole] = useState("student"); // Default role
 
   const handleAuth = async () => {
-    setError(""); 
+    setError("");
 
     const emailPattern =
       /^(lci|lit|lcs|lcb)202(1|2|3|4)0(0[1-9]|[1-5][0-9]|60)@iiitl\.ac\.in$/;
+
     if (!emailPattern.test(email)) {
-      setError(
-        "Only Institute email id is allowed."
-      );
+      setError("Only Institute email ID is allowed.");
       return;
     }
 
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful!");
+        alert(`${role} login successful!`);
+        // redirection will go here later based on role
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
-        alert("Signup successful!");
+        alert(`${role} signup successful!`);
+        // redirection will go here later based on role
       }
     } catch (err) {
-      setError(err.message); 
+      setError(err.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100">
-      <div className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md transition-all">
+    <div className="flex items-center justify-center min-h-screen bg-gray-800">
+      <div className="bg-gray-300 p-10 rounded-2xl shadow-2xl w-full max-w-md transition-all">
         <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">
           {isLogin ? "Welcome Back 👋" : "Create an Account"}
         </h2>
 
         <div className="space-y-4">
+          {/* Role Dropdown */}
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="student">Student</option>
+            <option value="professor">Professor</option>
+            <option value="admin">Admin</option>
+          </select>
+
+          {/* Email Input */}
           <input
             type="email"
-            placeholder="Email"
+            placeholder="Institute Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+
+          {/* Password Input */}
           <div>
             <input
               type="password"
@@ -61,6 +77,8 @@ function AuthPage() {
             />
             {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
           </div>
+
+          {/* Auth Button */}
           <button
             onClick={handleAuth}
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
