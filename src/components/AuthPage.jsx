@@ -2,15 +2,23 @@ import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut
 } from "firebase/auth";
+
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../utils/authSlice";
+import { useDispatch } from "react-redux";
 
 function AuthPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
-  const [role, setRole] = useState("student"); // Default role
+  const [role, setRole] = useState("student"); 
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAuth = async () => {
     setError("");
@@ -25,12 +33,14 @@ function AuthPage() {
 
     try {
       if (isLogin) {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert(`${role} login successful!`);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        dispatch(setUser(userCredential.user));
+        navigate('/about');
         // redirection will go here later based on role
       } else {
         await createUserWithEmailAndPassword(auth, email, password);
-        alert(`${role} signup successful!`);
+        dispatch(setUser(userCredential.user));
+        navigate('/about');
         // redirection will go here later based on role
       }
     } catch (err) {
