@@ -6,7 +6,7 @@ import { Calendar, Clock, Users } from "lucide-react"
 export default function UpcomingClasses({ classes: initialClasses }) {
   const [classes, setClasses] = useState(initialClasses)
 
-  // Function to check if a class is today
+
   const isToday = (dateString) => {
     const today = new Date()
     const classDate = new Date(dateString)
@@ -17,14 +17,10 @@ export default function UpcomingClasses({ classes: initialClasses }) {
     )
   }
 
-  // Auto-update daily
+
   useEffect(() => {
     const updateClasses = () => {
-      // In a real app, you would fetch updated classes from an API
-      // For this demo, we'll just update the existing classes
       const today = new Date().toISOString().split("T")[0]
-
-      // Mark classes as "Today" if they are today
       const updatedClasses = initialClasses.map((cls) => ({
         ...cls,
         isToday: isToday(cls.date),
@@ -35,14 +31,14 @@ export default function UpcomingClasses({ classes: initialClasses }) {
 
     updateClasses()
 
-    // Set up daily update
+
     const midnight = new Date()
     midnight.setHours(24, 0, 0, 0)
     const msUntilMidnight = midnight - new Date()
 
     const timer = setTimeout(() => {
       updateClasses()
-      // After the first update, update every 24 hours
+ 
       setInterval(updateClasses, 24 * 60 * 60 * 1000)
     }, msUntilMidnight)
 

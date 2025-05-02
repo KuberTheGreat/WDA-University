@@ -3,11 +3,11 @@ import React from 'react';
 function Contact() {
   return (
     <div className="container mx-auto py-16 px-4">
-      {/* Page Title */}
+      
       <h1 className="text-4xl font-bold text-center text-blue-900 mb-8">Contact Us</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white shadow-lg p-8 rounded-lg">
-        {/* Contact Information Section */}
+        
         <div>
           <h2 className="text-2xl font-semibold text-blue-900 mb-4">Get in Touch</h2>
           <div className="space-y-4 text-gray-700">
@@ -34,7 +34,7 @@ function Contact() {
             </p>
           </div>
 
-          {/* Social Media Links */}
+         
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">Follow Us:</h3>
             <div className="flex space-x-4">
@@ -54,7 +54,7 @@ function Contact() {
           </div>
         </div>
 
-        {/* Google Map Embed */}
+        
         <div>
           <h2 className="text-2xl font-semibold text-blue-900 mb-4">Our Location</h2>
           <iframe
