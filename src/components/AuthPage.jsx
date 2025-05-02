@@ -11,11 +11,11 @@ import { setUser } from "../utils/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function AuthPage() {
-  const [email, setEmail] = useState("lci2024033@iiitl.ac.in");
-  const [name, setName] = useState("Mohd Amaan");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [enrlno, setenrlno] = useState("LCI2024033");
-  const [gender, setGender] = useState("Male");
+  const [enrlno, setenrlno] = useState("");
+  const [gender, setGender] = useState("");
 
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
