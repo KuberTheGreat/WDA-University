@@ -12,7 +12,7 @@ function AuthPage() {
   const [error, setError] = useState("");
 
   const handleAuth = async () => {
-    setError(""); // clear previous error
+    setError(""); 
 
     const emailPattern =
       /^(lci|lit|lcs|lcb)202(1|2|3|4)0(0[1-9]|[1-5][0-9]|60)@iiitl\.ac\.in$/;
@@ -32,7 +32,7 @@ function AuthPage() {
         alert("Signup successful!");
       }
     } catch (err) {
-      setError(err.message); // set error for display
+      setError(err.message); 
     }
   };
 
