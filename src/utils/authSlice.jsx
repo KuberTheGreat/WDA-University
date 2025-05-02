@@ -2,7 +2,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  user: null, 
+  user: null,
+  name: '',
+  enrlno: '',
+  gender: '',
+  profilePic: '', // This will be a URL string
 };
 
 const authSlice = createSlice({
@@ -10,7 +14,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      const { user, name, enrlno, gender } = action.payload;
+      state.user = user;
+      state.name = name;
+      state.enrlno = enrlno;
+      state.gender = gender;
     },
     clearUser: (state) => {
       state.user = null;
