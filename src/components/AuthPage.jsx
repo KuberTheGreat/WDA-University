@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 function AuthPage() {
   const [email, setEmail] = useState("lci2024033@iiitl.ac.in");
   const [name, setName] = useState("Mohd Amaan");
-  const [password, setPassword] = useState("Amaan@9450");
+  const [password, setPassword] = useState("");
   const [enrlno, setenrlno] = useState("LCI2024033");
   const [gender, setGender] = useState("Male");
 
