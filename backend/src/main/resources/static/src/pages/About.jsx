@@ -15,7 +15,7 @@ import {
 function About() {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      
+      {/* Profile Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="bg-white rounded-lg shadow-sm border p-6">
           <div className="flex items-center space-x-4">
@@ -31,10 +31,10 @@ function About() {
         </div>
       </div>
 
-     
+      {/* Academic Progress */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-         
+          {/* Semester Performance */}
           <div className="bg-white rounded-lg shadow-sm border p-6 mb-8">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <TrendingUp className="h-5 w-5 mr-2 text-indigo-600" />
@@ -64,7 +64,7 @@ function About() {
             </div>
           </div>
 
-         
+          {/* Current Courses */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <BookOpen className="h-5 w-5 mr-2 text-indigo-600" />
@@ -95,9 +95,9 @@ function About() {
           </div>
         </div>
 
-        
+        {/* Right Column */}
         <div className="space-y-8">
-          
+          {/* Academic Achievements */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Trophy className="h-5 w-5 mr-2 text-indigo-600" />
@@ -120,7 +120,7 @@ function About() {
             </div>
           </div>
 
-          
+          {/* Academic Goals */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Target className="h-5 w-5 mr-2 text-indigo-600" />

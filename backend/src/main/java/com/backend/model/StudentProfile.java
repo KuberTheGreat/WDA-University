@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class StudentProfile {
     @Id
-    private Long id; 
+    private Long id; // Same as User ID
 
     private String name;
     private String department;
