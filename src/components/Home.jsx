@@ -1,84 +1,127 @@
+import { Fullscreen } from "lucide-react";
+import Navbar from "./Navbar";
 import React, { useEffect, useRef, useState } from "react";
-import Image1 from "../assets/Home/a.jpeg";
-import Image2 from "../assets/Home/b.jpeg";
-import Image3 from "../assets/Home/c.jpeg";
+import modi from "../assets/Home/first.png";
+import btech from "../assets/Home/Btech.webp";
+import director_group from "../assets/Home/director-group.jpg";
+import mtech from "../assets/Home/Mtech.webp";
+import students from "../assets/Home/Students.webp";
+import clg from "../assets/Home/IIIT.webp";
+const images = [
+  modi,
+  director_group,
+  btech,
+  mtech,
+  students,
+  clg
 
+];
 
 function Home() {
+  const sliderRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalSlides = images.length;
+  const [isHovered, setIsHovered] = useState(false);
 
-  const sliderRef = useRef(null); 
-  const [currentIndex, setCurrentIndex] = useState(0); 
-  const totalSlides = 3; 
-  const [isHovered, setIsHovered] = useState(false); 
-
+  // Auto slide
   useEffect(() => {
     if (isHovered) return;
-
-    const showNextSlide = () => {
+    const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
-    };
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isHovered, totalSlides]);
 
-    const interval = setInterval(showNextSlide, 3000); 
-    return () => clearInterval(interval); 
-  }, [totalSlides, isHovered]);
-
+  // Manual slider movement
   useEffect(() => {
     if (sliderRef.current) {
       sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
   }, [currentIndex]);
 
-  return (
-    <div className="min-h-screen">
-      <div className="bg-blue-800 text-white py-20">
-        <div className="container mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-4">Welcome to Our University</h1>
-          <p className="text-xl mb-8">Shaping Tomorrow's Leaders Today</p>
-          <button className="bg-black cursor-pointer text-white px-6 py-3 rounded-lg font-semibold hover:shadow-2xl shadow-sky-400">
-            Learn More
-          </button>
-        </div>
-      </div>
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalSlides);
+  };
 
-      <div className="relative w-full max-w-[1200px] max-h-[500px] overflow-hidden rounded-lg mt-8 mx-auto px-4" onMouseEnter={() => setIsHovered(true)} // Stop sliding on hover
-        onMouseLeave={() => setIsHovered(false)}>
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + totalSlides) % totalSlides);
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-800 text-white">
+      {/* Hero Section */}
+      
+
+      {/* Navbar Placeholder */}
+       {/* <Navbar /> */}
+
+
+      {/* Image Slider */}
+      <div
+        className="relative max-w-[1400px] overflow-hidden rounded-lg mt-8 mx-auto"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div
           ref={sliderRef}
-          className="flex transition-transform duration-1200 ease-in-out"
+          className="flex transition-transform duration-1000 ease-in-out"
+          style={{ width: Fullscreen }}
         >
-          <img
-            src={Image1}
-            alt="Slide 1"
-            className="w-full flex-shrink-0 object-fill"
-          />
-          <img
-            src={Image2}
-            alt="Slide 2"
-            className="w-full flex-shrink-0 object-fill pr-3 pl-3"
-          />
-          <img
-            src={Image3}
-            alt="Slide 3"
-            className="w-full flex-shrink-0 object-fill"
-          />
+          {images.map((url, index) => (
+            <img
+              key={index}
+              src={url}
+              alt={`Slide ${index + 1}`}
+              className="w-full max-h-[500px] object-contain flex-shrink-0"
+              // loading="lazy"
+            />
+          ))}
         </div>
-      </div>
 
-      <div className="container mx-auto py-16 px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 [&_div]:hover:shadow-gray-400 cursor-pointer">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-bold mb-4">Academic Excellence</h3>
-            <p>Discover our world-class programs and exceptional faculty.</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <img src="https://th.bing.com/th/id/OIP.wNWq_W968jEatVumfb-xsAHaEc?w=300&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="research"/>
-            <h3 className="text-xl font-bold mb-4">Research Opportunities</h3>
-            <p>Engage in groundbreaking research across various disciplines.</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-          <img src="https://th.bing.com/th/id/OIP.rbjqtXVCD6Sl1MOdf0geSwHaE8?w=300&h=200&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Student" />
-            <h3 className="text-xl font-bold mb-4">Student Life</h3>
-            <p>Experience a vibrant campus life with diverse activities.</p>
+        {/* Navigation Buttons */}
+        {/* <button
+          onClick={prevSlide}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 hover:bg-opacity-80 text-white p-2 rounded-full z-10"
+        >
+          ◀
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-700 bg-opacity-50 hover:bg-opacity-80 text-white p-2 rounded-full z-10"
+        >
+          ▶
+        </button> */}
+
+        {/* Director's Message Section */}
+        <div
+          className="relative mt-12 bg-cover bg-center bg-no-repeat py-16 px-8"
+          style={{
+            backgroundImage: `url('https://iiitl.ac.in/wp-content/uploads/2022/04/Institute-Pic-f.jpg')`,
+          }}
+        >
+          <div className="bg-gray-600 bg-opacity-60 p-8 rounded-lg max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 text-white">
+            {/* Left: Director Image */}
+            <div className="flex-shrink-0 w-full md:w-1/3">
+              <img
+                src="https://iiitl.ac.in/wp-content/uploads/2019/09/dr-arun-sherry-dp.jpg.webp" // Replace with actual image of Director
+                alt="Director"
+                className="w-full h-auto rounded-lg shadow-lg object-cover"
+              />
+            </div>
+
+            {/* Right: Message Text */}
+            <div className="w-full md:w-2/3">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">
+                Director's Message
+              </h2>
+              <p className="text-md md:text-lg leading-relaxed">
+                Welcome to the Indian Institute of Information Technology,
+                Lucknow, an institute of national importance. IIITs have a
+                tradition of producing best-in-class human resources in IT and
+                connecting multi-dimensional aspects of IT such as
+                manufacturing, design, and management.
+              </p>
+            </div>
           </div>
         </div>
       </div>
