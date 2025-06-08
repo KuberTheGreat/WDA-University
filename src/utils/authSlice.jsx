@@ -14,14 +14,19 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { user, name, enrlno, gender } = action.payload;
+      const { user, name, enrlno, gender, profilePic } = action.payload;
       state.user = user;
       state.name = name;
       state.enrlno = enrlno;
       state.gender = gender;
+      state.profilePic = profilePic || '';
     },
     clearUser: (state) => {
       state.user = null;
+      state.name = '';
+      state.enrlno = '';
+      state.gender = '';
+      state.profilePic = '';
     },
   },
 });

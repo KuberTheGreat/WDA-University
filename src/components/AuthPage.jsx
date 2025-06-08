@@ -2,9 +2,7 @@ import { useState } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
 } from "firebase/auth";
-
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { setUser } from "../utils/authSlice";
@@ -16,64 +14,48 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [enrlno, setenrlno] = useState("");
   const [gender, setGender] = useState("");
+  const [role, setRole] = useState("student");
 
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState("");
-  const [role, setRole] = useState("student");
+
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const storage = getStorage();
-  // const storageRef = ref(storage, `profile-pics/${userCredential.user.uid}`);
-
   const handleAuth = async () => {
     setError("");
+
     const emailPattern =
       /^(lci|lit|lcs|lcb)202(1|2|3|4)0(0[1-9]|[1-5][0-9]|60)@iiitl\.ac\.in$/;
 
     const enrolNoPattern =
       /^(LCI|LCS|LCB|LIT)202(1|2|3|4)0(0[1-9]|[1-5][0-9]|60)$/;
 
-    if (!isLogin)
-    {
-      if (!name || !enrlno  || !gender || !email || !password) {
-        setError("Please fill all fields.");
-        return;
-      }
-      if (!enrolNoPattern.test(enrlno)) {
-        setError("Enrollment No is not valid!!!");
-        return;
-      }
-    }
-    
-    
-
     if (!emailPattern.test(email)) {
       setError("Only Institute email ID is allowed.");
       return;
     }
 
-    
+    if (!isLogin) {
+      if (!name || !enrlno || !gender || !email || !password) {
+        setError("Please fill all fields.");
+        return;
+      }
+
+      if (!enrolNoPattern.test(enrlno)) {
+        setError("Enrollment No is not valid!");
+        return;
+      }
+    }
 
     try {
       if (isLogin) {
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         dispatch(setUser(userCredential.user));
         navigate("/about");
-        // redirection will go here later based on role
       } else {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        
-        
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         dispatch(
           setUser({
             user: userCredential.user,
@@ -82,9 +64,7 @@ function AuthPage() {
             gender,
           })
         );
-        console.log("from dispatch" + userCredential.user )
         navigate("/about");
-        // redirection will go here later based on role
       }
     } catch (err) {
       setError(err.message);
@@ -99,7 +79,7 @@ function AuthPage() {
         </h2>
 
         <div className="space-y-4">
-          {/* Role Dropdown */}
+          {/* Role Selection */}
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -110,61 +90,39 @@ function AuthPage() {
             <option value="admin">Admin</option>
           </select>
 
-          {/* Name Input  */}
-
+          {/* Signup only fields */}
           {!isLogin && (
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-
-          {/* Enrollment No  */}
-
-          {!isLogin && (
-            <input
-              type="text"
-              placeholder="Enrollment No"
-              value={enrlno}
-              onChange={(e) => setenrlno(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          )}
-
-          {/* Profile Pic  */}
-
-          {/* {!isLogin && (
-            <div className="w-full">
-              <label className="block mb-1 font-medium text-gray-700">
-                Upload Profile Picture
-              </label>
+            <>
               <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => setProfilePic(e.target.files[0])}
-                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-            </div>
-          )} */}
 
-          {/* Gender  */}
-          {!isLogin && (
-            <select
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select Gender</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
+              <input
+                type="text"
+                placeholder="Enrollment No"
+                value={enrlno}
+                onChange={(e) => setenrlno(e.target.value)}
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </>
           )}
 
-          {/* Email Input */}
+          {/* Email and Password */}
           <input
             type="email"
             placeholder="Institute Email"
@@ -173,7 +131,6 @@ function AuthPage() {
             className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
-          {/* Password Input */}
           <div>
             <input
               type="password"
@@ -185,7 +142,7 @@ function AuthPage() {
             {error && <p className="mt-1 text-sm text-red-600">{error}</p>}
           </div>
 
-          {/* Auth Button */}
+          {/* Button */}
           <button
             onClick={handleAuth}
             className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-200"
