@@ -2,9 +2,27 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { div } from "framer-motion/client";
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { clearUser } from "../utils/authSlice";
+import { auth } from "../utils/firebase";
+import { signOut } from "firebase/auth";
 
 function Navbar() {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      dispatch(clearUser());
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   return (
     <div className="bg-blue-300">
@@ -114,11 +132,17 @@ function Navbar() {
           </div>
 
           {/* Login */}
-          <div className="relative group">
-            <Link to={"/login"} className="hover:text-gray-300">
-              Login
-            </Link>
-          </div>
+           <div className="relative group">
+      {user ? (
+        <button onClick={handleLogout} className="hover:text-gray-300">
+          Logout
+        </button>
+      ) : (
+        <Link to="/login" className="hover:text-gray-300">
+          Login
+        </Link>
+      )}
+    </div>
 
           
 

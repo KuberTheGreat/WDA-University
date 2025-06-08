@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   BookOpen, 
   Award, 
@@ -8,22 +8,45 @@ import {
   TrendingUp,
   CheckCircle
 } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function About() {
+  const user = useSelector((state) => state.auth.user);
+  const name = useSelector((state) => state.auth.name);
+  const enrlno = useSelector((state) => state.auth.enrlno);
+  const email = useSelector((state) => state.auth.email);
+  const gender = useSelector((state) => state.auth.gender);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-gray-800 py-8 px-4 sm:px-6 lg:px-8 text-white">
-
       {/* Profile Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="bg-gray-900 rounded-lg shadow-sm border border-gray-700 p-6">
           <div className="flex items-center space-x-4">
             <div className="h-20 w-20 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 flex items-center justify-center">
-              <span className="text-2xl font-bold text-white">AS</span>
+              <span className="text-2xl font-bold text-white">
+                {name?.split(" ").map(n => n[0]).join("") || "AS"}
+              </span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">Amaan Siddiquie</h1>
-              <p className="text-gray-400">B.Tech CS & AI • 2024-2028</p>
-              <p className="text-sm text-gray-500">Roll No: LCI2024033</p>
+              {user ? (
+                <>
+                  <h1 className="text-2xl font-bold text-white">{name || "Amaan Siddiquie"}</h1>
+                  <p className="text-gray-400">Gender: {gender || "Male"}</p>
+                  <p className="text-sm text-gray-500">Enrollment No: {enrlno || "LCI2024033"}</p>
+                  <p className="text-sm text-gray-500">Email: {email || "lci2024033@iiitl.ac.in"}</p>
+                </>
+              ) : (
+                <>
+                  <h1 className="text-2xl font-bold text-white">Amaan Siddiquie</h1>
+                  <p className="text-gray-400">B.Tech CS & AI • 2024-2028</p>
+                  <p className="text-sm text-gray-500">Roll No: LCI2024033</p>
+                </>
+              )}
             </div>
           </div>
         </div>
